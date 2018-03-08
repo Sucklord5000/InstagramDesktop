@@ -1,4 +1,5 @@
 ﻿
+using InstaSharper.Classes;
 using InstaSharper.Logger;
 using MahApps.Metro.Controls.Dialogs;
 using System;
@@ -117,30 +118,23 @@ namespace TestCallASPAPI.ModelView
                         .SetRequestDelay(TimeSpan.FromSeconds(0))
                         .Build();
 
-
                     if (!App.api.IsUserAuthenticated)
                     {
-                        try
+
+                        IsActive = true;
+                        IsVisibility = false;
+                        IResult<InstaLoginResult> res = await App.api.LoginAsync();
+                        if (!res.Succeeded)
                         {
-                            IsActive = true;
-                            IsVisibility = false;
-                            var res = await App.api.LoginAsync();
-                            if (!res.Succeeded)
-                            {
-                                IsActive = false;
-                                IsVisibility = true;
-                                MessageBox.Show(res.Info.Message, "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Error);
-                            }
-                            else
-                            {
-                                IsActive = false;
-                                IsVisibility = false;
-                                HelperClass.Mediator.Notify("ChangePage", 1);
-                            }
+                            IsActive = false;
+                            IsVisibility = true;
+                            MessageBox.Show(res.Info.Message, "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Error);
                         }
-                        catch (Exception e)
+                        else
                         {
-                            MessageBox.Show(e.Message);
+                            IsActive = false;
+                            IsVisibility = false;
+                            HelperClass.Mediator.Notify("ChangePage", 1);
                         }
                     }
                 }));

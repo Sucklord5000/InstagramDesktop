@@ -12,8 +12,9 @@ namespace TestCallASPAPI.HelperClass
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            int Width = System.Convert.ToInt32(value);          
-            return (Width / 3);
+            int Width = System.Convert.ToInt32(value);
+            int Param = System.Convert.ToInt32(parameter);         
+            return (Width / Param);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

@@ -27,104 +27,109 @@
             <i:InvokeCommandAction Command="{Binding LoadedCommand}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
-    
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
             <RowDefinition Height=".1*"/>
-            <RowDefinition Height=".4*"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
-
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0.05*"/>
-            <ColumnDefinition Width=".5*"/>
-            <ColumnDefinition Width="0.05*"/>
-        </Grid.ColumnDefinitions>
-        <MyElement:InstaPanel Grid.ColumnSpan="3" BorderThickness="0 0 0 1" BorderBrush="LightGray" Home="{Binding DataContext.GetHome,RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Page}}"/>
-
-        <Grid Grid.Column="1" Grid.Row="2">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width=".5*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-            <Ellipse Width="160" Height="160">
-                <Ellipse.Fill>
-                    <ImageBrush ImageSource="{Binding GetUserInfo.GetSourcePictureUser,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></ImageBrush>
-                </Ellipse.Fill>
-            </Ellipse>
-            <Grid  Grid.Column="1">
+        <MyElement:InstaPanel BorderThickness="0 0 0 1" BorderBrush="LightGray" Home="{Binding DataContext.GetHome,RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Page}}"/>
+        <ScrollViewer Margin="0 30 0 0" Grid.Row="1">
+            <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height=".6*"/>
+                    <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
+
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
+                    <ColumnDefinition Width="0.03*"/>
+                    <ColumnDefinition Width=".5*"/>
+                    <ColumnDefinition Width="0.03*"/>
                 </Grid.ColumnDefinitions>
 
-                <TextBlock VerticalAlignment="Bottom" Grid.ColumnSpan="3" FontWeight="Light" FontSize="30" Text="{Binding GetUserInfo.GetName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
-                <TextBlock VerticalAlignment="Center" FontSize="15" FontWeight="Bold" Grid.Row="1" Grid.Column="0" Text="{Binding GetUserInfo.GetCountPublish,Mode=OneWay,UpdateSourceTrigger=PropertyChanged,StringFormat={}{0} публикаций}"/>
-                <TextBlock VerticalAlignment="Center" FontSize="15" FontWeight="Bold" Grid.Row="1" Grid.Column="1" Text="{Binding GetUserInfo.GetCountFollowers,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,StringFormat={}{0} подписчиков}">
+                <Grid Grid.Column="1" Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width=".5*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Ellipse Width="160" Height="160">
+                        <Ellipse.Fill>
+                            <ImageBrush ImageSource="{Binding GetUserInfo.GetSourcePictureUser,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></ImageBrush>
+                        </Ellipse.Fill>
+                    </Ellipse>
+                    <Grid  Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock VerticalAlignment="Bottom" Grid.ColumnSpan="3" FontWeight="Light" FontSize="30" Text="{Binding GetUserInfo.GetName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBlock VerticalAlignment="Center" FontSize="15" FontWeight="Bold" Grid.Row="1" Grid.Column="0" Text="{Binding GetUserInfo.GetCountPublish,Mode=OneWay,UpdateSourceTrigger=PropertyChanged,StringFormat={}{0} публикаций}"/>
+                        <TextBlock VerticalAlignment="Center" FontSize="15" FontWeight="Bold" Grid.Row="1" Grid.Column="1" Text="{Binding GetUserInfo.GetCountFollowers,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,StringFormat={}{0} подписчиков}">
                      <i:Interaction.Triggers>
                            <i:EventTrigger EventName="MouseLeftButtonDown">
                                <i:InvokeCommandAction Command="{Binding FollowersCommand}" />
                            </i:EventTrigger>
                     </i:Interaction.Triggers>
-                </TextBlock>
-                <TextBlock VerticalAlignment="Center" FontSize="15" FontWeight="Bold"  Grid.Row="1" Grid.Column="2" Text="{Binding GetUserInfo.GetCountFollowing,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,StringFormat={}{0} подписок}" />
-                <TextBlock FontWeight="Bold" Grid.ColumnSpan="3" FontSize="15" Grid.Row="2" Text="{Binding GetUserInfo.GetFullName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
-            </Grid>
-        </Grid>
-
-        <ListView Name="MyListView" hc:ListViewBehavior.IsEnabled="True" hc:ListViewBehavior.Command="{Binding GetSelectionChanged}" Grid.Row="3" Grid.Column="1" VirtualizingPanel.VirtualizationMode="Recycling" VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.IsVirtualizingWhenGrouping="True" VirtualizingPanel.IsContainerVirtualizable="True" ItemContainerStyle="{StaticResource myLVStyle}" BorderThickness="0" SelectedItem="{Binding GetSelectedItem,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding GetMyPhoto,IsAsync=True,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
-            <ListView.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <WrapPanel Name="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" Width="{Binding (FrameworkElement.ActualWidth), 
-                            RelativeSource={RelativeSource AncestorType=ScrollContentPresenter}}"
-                            ItemWidth="{Binding Width,Converter={StaticResource deleteThree}}"
-                            MinWidth="{Binding ItemWidth, RelativeSource={RelativeSource Self}}"
-                            ItemHeight="{Binding Height,Converter={StaticResource deleteThree}}"/>
-                </ItemsPanelTemplate>
-            </ListView.ItemsPanel>
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <Grid>
-                        <Image Source="{Binding GetBitmapImage,IsAsync=True,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Name="image" HorizontalAlignment="Stretch" VerticalAlignment="Top" Stretch="None">
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="MouseEnter">
-                                    <i:InvokeCommandAction CommandParameter="{Binding}" Command="{Binding ElementName=Wrap,Path=DataContext.GetMouseEnter}"/>
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
-                        </Image>
-                        <Label Visibility="{Binding GetVisibility,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource booleanToVisibiltyConverter2}}" Background="Black" Opacity=".5">
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="MouseLeave">
-                                    <i:InvokeCommandAction CommandParameter="{Binding}" Command="{Binding ElementName=Wrap,Path=DataContext.GetMouseLeave}"/>
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
-                        </Label>
-                        <Grid Visibility="{Binding GetVisibility,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource booleanToVisibiltyConverter2}}">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
-                            </Grid.ColumnDefinitions>
-                            <iconPacks:PackIconMaterial Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Kind="Heart" Width="20" Height="20"></iconPacks:PackIconMaterial>
-                            <TextBlock FontWeight="Bold" FontSize="16" Margin="-30 0 0 0" HorizontalAlignment="Center" Foreground="White" VerticalAlignment="Center" Text="{Binding GetCountLikes,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Grid.Column="1"></TextBlock>
-                            <iconPacks:PackIconMaterial Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="2" Kind="Comment" Width="20" Height="20"></iconPacks:PackIconMaterial>
-                            <TextBlock FontWeight="Bold" Margin="-30 0 0 0" FontSize="16" Grid.Column="3" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding GetCountComments,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBlock>
-                        </Grid>
+                        </TextBlock>
+                        <TextBlock VerticalAlignment="Center" FontSize="15" FontWeight="Bold"  Grid.Row="1" Grid.Column="2" Text="{Binding GetUserInfo.GetCountFollowing,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,StringFormat={}{0} подписок}" />
+                        <TextBlock FontWeight="Bold" Grid.ColumnSpan="3" FontSize="15" Grid.Row="2" Text="{Binding GetUserInfo.GetFullName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                     </Grid>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+                </Grid>
+
+                <ListView Margin="0 50 0 0" ScrollViewer.VerticalScrollBarVisibility="Hidden" Name="MyListView" hc:ListViewBehavior.IsEnabled="True" hc:ListViewBehavior.Command="{Binding GetSelectionChanged}" Grid.Row="2" Grid.Column="1" VirtualizingPanel.VirtualizationMode="Recycling" VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.IsVirtualizingWhenGrouping="True" VirtualizingPanel.IsContainerVirtualizable="True" ItemContainerStyle="{StaticResource myLVStyle}" BorderThickness="0" SelectedItem="{Binding GetSelectedItem,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding GetMyPhoto,IsAsync=True,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Name="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" Width="{Binding (FrameworkElement.ActualWidth), 
+                          RelativeSource={RelativeSource AncestorType=ScrollContentPresenter}}"
+                          ItemWidth="{Binding Path=ActualWidth,ElementName=Wrap,Converter={StaticResource deleteThree},ConverterParameter='3'}"
+                          MinWidth="{Binding ItemWidth, RelativeSource={RelativeSource Self}}"/>
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Image Source="{Binding GetBitmapImage,IsAsync=True,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Name="image" HorizontalAlignment="Stretch" VerticalAlignment="Top" Stretch="UniformToFill">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="MouseEnter">
+                                            <i:InvokeCommandAction CommandParameter="{Binding}" Command="{Binding ElementName=Wrap,Path=DataContext.GetMouseEnter}"/>
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </Image>
+                                <Label Visibility="{Binding GetVisibility,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource booleanToVisibiltyConverter2}}" Background="Black" Opacity=".5">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="MouseLeave">
+                                            <i:InvokeCommandAction CommandParameter="{Binding}" Command="{Binding ElementName=Wrap,Path=DataContext.GetMouseLeave}"/>
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </Label>
+                                <Grid Visibility="{Binding GetVisibility,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource booleanToVisibiltyConverter2}}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <iconPacks:PackIconMaterial Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Kind="Heart" Width="20" Height="20"></iconPacks:PackIconMaterial>
+                                    <TextBlock FontWeight="Bold" FontSize="16" Margin="-30 0 0 0" HorizontalAlignment="Center" Foreground="White" VerticalAlignment="Center" Text="{Binding GetCountLikes,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Grid.Column="1"></TextBlock>
+                                    <iconPacks:PackIconMaterial Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="2" Kind="Comment" Width="20" Height="20"></iconPacks:PackIconMaterial>
+                                    <TextBlock FontWeight="Bold" Margin="-30 0 0 0" FontSize="16" Grid.Column="3" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding GetCountComments,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBlock>
+                                </Grid>
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Grid>
+        </ScrollViewer>
     </Grid>
 </Page>

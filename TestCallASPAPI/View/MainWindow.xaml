@@ -10,8 +10,8 @@
 
         mc:Ignorable="d"
         xmlns:h="clr-namespace:TestCallASPAPI.ModelView"
-        Title="Instagram" Height="730" Width="1125"
-                      MinWidth="1125" MinHeight="730"
+        Title="Instagram" Height="730" Width="1155"
+                      MinWidth="1155" MinHeight="730"
         WindowStartupLocation="CenterScreen">
 
 

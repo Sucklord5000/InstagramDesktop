@@ -46,7 +46,7 @@ namespace TestCallASPAPI.ModelView
             this.NavigationStack.Add(new ModelView.FeedViewModel());
             HelperClass.Mediator.Registry("ChangePage", Change);
             HelperClass.Mediator.Registry("SendValue", Send);
-            StartNewPage = this.NavigationStack[4];
+            StartNewPage = this.NavigationStack[1];
         }
 
         private void Change(object PageIndex)
