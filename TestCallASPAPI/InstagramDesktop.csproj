@@ -1,0 +1,281 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{C1C697AD-F1D2-49DD-91AC-8154D8FAED24}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TestCallASPAPI</RootNamespace>
+    <AssemblyName>TestCallASPAPI</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="crypto, Version=1.8.1.0, Culture=neutral, PublicKeyToken=0e99375e54769942, processorArchitecture=MSIL">
+      <HintPath>..\packages\Portable.BouncyCastle.1.8.1.1\lib\netstandard1.0\crypto.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="InstaSharper, Version=1.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\InstaSharper.1.4.0\lib\net452\InstaSharper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MahApps.Metro, Version=1.5.0.23, Culture=neutral, PublicKeyToken=f4fb5a3c4d1e5b4f, processorArchitecture=MSIL">
+      <HintPath>..\packages\MahApps.Metro.1.5.0\lib\net45\MahApps.Metro.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MahApps.Metro.IconPacks, Version=2.0.0.31, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MahApps.Metro.IconPacks.2.0.0\lib\net45\MahApps.Metro.IconPacks.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="RestSharp, Version=106.2.1.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestSharp.106.2.1\lib\net452\RestSharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing.Design" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Runtime.Caching" />
+    <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.InteropServices.RuntimeInformation.4.0.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.ValueTuple, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.4.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\MahApps.Metro.1.5.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="Vlc.DotNet.Core, Version=2.2.1.0, Culture=neutral, PublicKeyToken=84529da31f4eb963, processorArchitecture=MSIL">
+      <HintPath>..\packages\Vlc.DotNet.Core.2.2.1\lib\net45\Vlc.DotNet.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Vlc.DotNet.Core.Interops, Version=2.2.1.0, Culture=neutral, PublicKeyToken=84529da31f4eb963, processorArchitecture=MSIL">
+      <HintPath>..\packages\Vlc.DotNet.Core.Interops.2.2.1\lib\net45\Vlc.DotNet.Core.Interops.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Vlc.DotNet.Forms, Version=2.2.1.0, Culture=neutral, PublicKeyToken=84529da31f4eb963, processorArchitecture=MSIL">
+      <HintPath>..\packages\Vlc.DotNet.Forms.2.2.1\lib\net45\Vlc.DotNet.Forms.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Vlc.DotNet.Wpf, Version=2.2.1.0, Culture=neutral, PublicKeyToken=84529da31f4eb963, processorArchitecture=MSIL">
+      <HintPath>..\packages\Vlc.DotNet.Wpf.2.2.1\lib\net45\Vlc.DotNet.Wpf.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="WindowsFormsIntegration" />
+    <Reference Include="xNet, Version=3.3.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\xNet.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="View\App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="HelperClass\AllInformationAboutTheUser.cs" />
+    <Compile Include="HelperClass\ApiController.cs" />
+    <Compile Include="HelperClass\BooleanToVisibilityConverter.cs" />
+    <Compile Include="HelperClass\CacheHelper.cs" />
+    <Compile Include="HelperClass\IPageViewModel.cs" />
+    <Compile Include="HelperClass\ListViewBehavior.cs" />
+    <Compile Include="HelperClass\SaveLikeCollection.cs" />
+    <Compile Include="HelperClass\WidthDeleteThreeConverter.cs" />
+    <Compile Include="ModelView\DialogViewModel.cs" />
+    <Compile Include="ModelView\FeedViewModel.cs" />
+    <Compile Include="ModelView\PageFollowersOrFollowingViewModel.cs" />
+    <Compile Include="Model\CarouselItem.cs" />
+    <Compile Include="Model\Comment.cs" />
+    <Compile Include="Model\FeedItem.cs" />
+    <Compile Include="Model\GenericList.cs" />
+    <Compile Include="Model\Human.cs" />
+    <Compile Include="Model\MediaInfo.cs" />
+    <Compile Include="Model\UserInfo.cs" />
+    <Compile Include="HelperClass\Mediator.cs" />
+    <Compile Include="HelperClass\PasswordBehavior.cs" />
+    <Compile Include="ModelView\MainPageViewModel.cs" />
+    <Compile Include="ModelView\StartUpPageViewModel.cs" />
+    <Compile Include="MyFrameworkElement\InstaFeed.xaml.cs">
+      <DependentUpon>InstaFeed.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MyFrameworkElement\InstaPanel.xaml.cs">
+      <DependentUpon>InstaPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MyFrameworkElement\TextBoxPlaceholder.xaml.cs">
+      <DependentUpon>TextBoxPlaceholder.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Dialog.xaml.cs">
+      <DependentUpon>Dialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Feed.xaml.cs">
+      <DependentUpon>Feed.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\MainPage.xaml.cs">
+      <DependentUpon>MainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\PageFollowersOrFollowing.xaml.cs">
+      <DependentUpon>PageFollowersOrFollowing.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\StartUpPage.xaml.cs">
+      <DependentUpon>StartUpPage.xaml</DependentUpon>
+    </Compile>
+    <Page Include="MyFrameworkElement\InstaFeed.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MyFrameworkElement\InstaPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MyFrameworkElement\TextBoxPlaceholder.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Dialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Feed.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\MainPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="HelperClass\RelayCommand.cs" />
+    <Compile Include="ModelView\MainWindowViewModel.cs" />
+    <Compile Include="View\App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Model\FollowersInfo.cs" />
+    <Compile Include="View\MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="View\PageFollowersOrFollowing.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\StartUpPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+    <Resource Include="Resources\Billabong.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\1.jpg" />
+    <Resource Include="Resources\2.jpg" />
+    <Resource Include="Resources\3.jpg" />
+    <Resource Include="Resources\4.jpg" />
+    <Resource Include="Resources\5.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\AppStore.png" />
+    <Resource Include="Resources\GooglePlay.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Background.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\rob-swire.jpeg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\79Y8t8S66XY.jpg" />
+    <Resource Include="Resources\aUzfcQtoywA.jpg" />
+    <Resource Include="Resources\u32w7QQJO48.jpg" />
+    <Resource Include="Resources\XMDrTHX8UBc.jpg" />
+    <Resource Include="Resources\y6l296zpqwU.jpg" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,56 @@
+﻿<Page x:Class="TestCallASPAPI.View.Feed"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:MyElement="clr-namespace:TestCallASPAPI.MyFrameworkElement"
+      xmlns:local="clr-namespace:TestCallASPAPI.ModelView"
+      xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+      xmlns:sys="clr-namespace:System;assembly=mscorlib"
+      xmlns:hc="clr-namespace:TestCallASPAPI.HelperClass"
+      mc:Ignorable="d" 
+      d:DesignHeight="300" d:DesignWidth="300"
+      d:DataContext="{d:DesignInstance local:FeedViewModel, IsDesignTimeCreatable=True}">
+
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadedCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height=".1*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <MyElement:InstaPanel/>
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width=".2*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width=".2*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <ItemsControl Grid.Column="1" Grid.Row="1" ItemsSource="{Binding GetItem}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Name="stack" Orientation="Vertical"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <MyElement:InstaFeed DeleteCommentCommand="{Binding DataContext.DeleteCommentsCommand,ElementName=stack}" SendComment="{Binding DataContext.SendCommentCommand,ElementName=stack}" PathImage="{Binding Image}" HorizontalAlignment="Stretch" Margin="0 50 0 0" ItemsSource="{Binding Comments}" Grid.Column="1" GetCountLike="{Binding CountLike}" GetComment="{Binding DataContext.GetTextComment,ElementName=stack,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="GotFocus">
+                                        <i:InvokeCommandAction CommandParameter="{Binding}" Command="{Binding DataContext.GotFocusCommand,ElementName=stack}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </MyElement:InstaFeed>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </Grid>
+        </ScrollViewer>
+    </Grid>
+</Page>

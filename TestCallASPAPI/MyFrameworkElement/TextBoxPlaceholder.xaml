@@ -1,0 +1,23 @@
+﻿<UserControl x:Class="TestCallASPAPI.MyFrameworkElement.TextBoxPlaceholder"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TestCallASPAPI.MyFrameworkElement"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             mc:Ignorable="d" 
+             Name="user"
+             d:DataContext="{d:DesignInstance local:TextBoxPlaceholder, IsDesignTimeCreatable=True}">
+    <Grid DataContext="{Binding RelativeSource={RelativeSource FindAncestor,
+                                      AncestorType=UserControl}}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+        </Grid.RowDefinitions>
+        
+        <TextBlock Margin="5 0 0 0" Name="SecretTextBlock" VerticalAlignment="Center" Foreground="Gray"
+                   Text="{Binding Placeholder}"/>
+        <TextBox FontSize="14" ScrollViewer.PanningMode="VerticalOnly" ScrollViewer.VerticalScrollBarVisibility="Auto" BorderThickness="0"  VerticalContentAlignment="Center" HorizontalContentAlignment="Left" 
+                 Text="{Binding GetEnterText,UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" Name="MyTextBox" 
+                 Background="Transparent"/>
+    </Grid>
+</UserControl>

@@ -1,0 +1,44 @@
+﻿<Controls:MetroWindow x:Class="TestCallASPAPI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TestCallASPAPI"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:p="clr-namespace:TestCallASPAPI.View"
+
+        mc:Ignorable="d"
+        xmlns:h="clr-namespace:TestCallASPAPI.ModelView"
+        Title="Instagram" Height="730" Width="1125"
+                      MinWidth="1125" MinHeight="730"
+        WindowStartupLocation="CenterScreen">
+
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Closing">
+            <i:InvokeCommandAction Command="{Binding WindowClosing}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type h:StartUpPageViewModel}">
+            <p:StartUpPage/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type h:MainPageViewModel}">
+            <p:MainPage/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type h:DialogViewModel}">
+            <p:Dialog/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type h:PageFollowersOrFollowingViewModel}">
+            <p:PageFollowersOrFollowing/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type h:FeedViewModel}">
+            <p:Feed/>
+        </DataTemplate>
+    </Window.Resources>
+
+    <Grid>
+        <Frame Content="{Binding StartNewPage,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" NavigationUIVisibility="Hidden"/>
+    </Grid>
+</Controls:MetroWindow>

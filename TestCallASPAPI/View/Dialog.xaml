@@ -1,0 +1,198 @@
+﻿<Page x:Class="TestCallASPAPI.View.Dialog"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+      xmlns:local="clr-namespace:TestCallASPAPI.ModelView"
+      xmlns:hc="clr-namespace:TestCallASPAPI.HelperClass"
+      xmlns:Dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
+      Dialog:DialogParticipation.Register="{Binding}"
+      xmlns:vlc="clr-namespace:Vlc.DotNet.Wpf;assembly=Vlc.DotNet.Wpf"
+      xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+      xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+      mc:Ignorable="d" 
+      xmlns:MyElement="clr-namespace:TestCallASPAPI.MyFrameworkElement"
+      d:DataContext="{d:DesignInstance local:DialogViewModel, IsDesignTimeCreatable=True}"
+      d:DesignHeight="300" d:DesignWidth="300">
+
+    <Page.Resources>
+        <Style x:Key="myLVStyle" TargetType="{x:Type ListViewItem}">
+            <Style.Resources>
+                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Transparent"/>
+            </Style.Resources>
+        </Style>
+        <hc:BooleanToVisibilityConverter x:Key="booleanToVisibiltyConverter"/>
+        
+    </Page.Resources>
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadedCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width=".2*"/>
+            <ColumnDefinition Width=".7*"/>
+            <ColumnDefinition Width=".1*"/>
+            <ColumnDefinition Width=".5*"/>
+            <ColumnDefinition Width=".1*"/>
+        </Grid.ColumnDefinitions>
+        <Controls:Flyout IsOpen="True" Theme="Light" Header="Назад" CloseCommand="{Binding ClosePage}"/>
+        <Controls:FlipView Grid.Column="1" SelectedIndex="{Binding GetSelectedIndex,IsAsync=True,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" IsBannerEnabled="False" ItemsSource="{Binding GetCarouselCollection,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+            <Controls:FlipView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Image Source="{Binding GetSourceUrl}" Stretch="UniformToFill"/>
+                    </Grid>
+                </DataTemplate>
+            </Controls:FlipView.ItemTemplate>
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="SelectionChanged">
+                    <i:InvokeCommandAction Command="{Binding GetNextView}" CommandParameter="{Binding}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </Controls:FlipView>
+        <Grid HorizontalAlignment="Stretch" Grid.Column="3" Visibility="{Binding GetVisibilityListLikes,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource booleanToVisibiltyConverter}}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height=".1*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Border>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width=".1*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <iconPacks:PackIconMaterial Cursor="Hand" VerticalAlignment="Center" Kind="Close" Width="20" Height="20">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="MouseLeftButtonDown">
+                                <i:InvokeCommandAction Command="{Binding GetCloseLike}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </iconPacks:PackIconMaterial>
+                    <TextBlock Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Отметки «Нравится»" FontWeight="Bold" FontSize="15"/>
+                </Grid>
+            </Border>
+            <ListView Grid.Row="1" BorderBrush="Gray" BorderThickness="0 0 0 1" Grid.Column="1" ItemsSource="{Binding GetMyLikers,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding GetSelectedItemLike,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Border BorderBrush="Gray" BorderThickness="0 0 0 1">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width=".2*"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Ellipse Cursor="Hand" Width="35" Height="35">
+                                    <Ellipse.Fill>
+                                        <ImageBrush Stretch="UniformToFill" ImageSource="{Binding Image,Mode=TwoWay,IsAsync=True,UpdateSourceTrigger=PropertyChanged}"/>
+                                    </Ellipse.Fill>
+                                </Ellipse>
+                                <StackPanel Grid.Column="1">
+                                    <TextBlock Cursor="Hand" FontWeight="Bold" FontSize="15" Text="{Binding UserName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                                    <TextBlock  FontWeight="Light" FontSize="15" Text="{Binding FullName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
+        <Grid Grid.Column="3" Visibility="{Binding GetVisibilityComments,Converter={StaticResource booleanToVisibiltyConverter},Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch">
+            <Grid.RowDefinitions>
+                <RowDefinition Height=".1*"/>
+                <RowDefinition Height=".7*"/>
+                <RowDefinition Height=".1*"/>
+                <RowDefinition Height="0.05*"/>
+                <RowDefinition Height="0.05*"/>
+                <RowDefinition Height=".1*"/>
+            </Grid.RowDefinitions>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width=".3*"/>
+                    <ColumnDefinition Width=".7*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Ellipse Grid.Row="0" VerticalAlignment="Center" Grid.RowSpan="2" Width="40" Height="40">
+                    <Ellipse.Fill>
+                        <ImageBrush Stretch="Uniform" ImageSource="{Binding GetPictureUser,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                    </Ellipse.Fill>
+                </Ellipse>
+                <TextBlock VerticalAlignment="Center" Grid.RowSpan="2" TextWrapping="WrapWithOverflow" FontWeight="Bold" Grid.Column="1" Text="{Binding GetUserName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBlock>
+                <TextBlock FontWeight="Light" VerticalAlignment="Center" Grid.Row="2" Grid.Column="1" Text="{Binding SelectedItem.GetLocation,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"></TextBlock>
+            </Grid>
+            <ListView VirtualizingPanel.VirtualizationMode="Recycling" VirtualizingPanel.IsVirtualizing="True" HorizontalContentAlignment="Stretch" Grid.Row="1" ItemsSource="{Binding GetComments,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" BorderBrush="Gray" BorderThickness="0 1 0 1">
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Name="StackPanel"  Width="{Binding (FrameworkElement.ActualWidth), 
+                            RelativeSource={RelativeSource AncestorType=ScrollContentPresenter}}" Orientation="Vertical" HorizontalAlignment="Center"/>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width=".2*"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width=".1*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock TextWrapping="Wrap" FontWeight="Bold" FontSize="13" Text="{Binding UserName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBlock Grid.Column="1" TextWrapping="Wrap" FontSize="13" Text="{Binding Comments,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                            <iconPacks:PackIconMaterial VerticalAlignment="Center" Grid.Column="2" Kind="Close" Width="10" Height="10" Cursor="Hand">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction CommandParameter="{Binding}" Command="{Binding ElementName=StackPanel,Path=DataContext.GetDeleteComment}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </iconPacks:PackIconMaterial>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width=".2*"></ColumnDefinition>
+                    <ColumnDefinition Width=".2*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <iconPacks:PackIconMaterial Foreground="{Binding GetForeground,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" HorizontalAlignment="Left" Cursor="Hand" Kind="Heart" Width="20" Height="20">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseLeftButtonDown">
+                            <i:InvokeCommandAction Command="{Binding GetClickLike}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </iconPacks:PackIconMaterial>
+                <iconPacks:PackIconMaterial HorizontalAlignment="Left" VerticalAlignment="Center" Cursor="Hand" Grid.Column="2" Kind="Comment" Width="20" Height="20"/>
+            </Grid>
+            <TextBlock VerticalAlignment="Center" Grid.Row="3" FontWeight="Bold" FontSize="13" Cursor="Hand" Text="{Binding SelectedItem.GetCountLikes,StringFormat={}{0} отметок «Нравится»,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                        <i:InvokeCommandAction Command="{Binding GetLikes}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </TextBlock>
+            <TextBlock Grid.Row="4" VerticalAlignment="Center" Text="{Binding SelectedItem.GetDate,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" TextWrapping="WrapWithOverflow" Foreground="Black"></TextBlock>
+            <Grid Margin="-5 0 0 0" Grid.Row="5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width=".1*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <MyElement:TextBoxPlaceholder GetEnterText="{Binding DataContext.GetText,RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Page},Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
+                                              Placeholder="Добавьте комментарий..."/>
+                <Button BorderThickness="0" Grid.Column="1" Command="{Binding GetSendComment}">
+                    <Button.Content>
+                        <iconPacks:Material Kind="Send" Width="20" Height="20"/>
+                    </Button.Content>
+                </Button>
+            </Grid>
+        </Grid>
+    </Grid>
+</Page>
