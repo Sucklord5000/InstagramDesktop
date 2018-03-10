@@ -12,7 +12,6 @@ namespace TestCallASPAPI.HelperClass
         public ObservableCollection<Model.MediaInfo> GetPhotoUser { get; set; }
         public int CountFollowers { get; set; }
         public int CountFollowing { get; set; }
-        public int CountPublish { get; set; }
         public string SourceImage { get; set; }
         public string UserName { get; set; } 
         public string FullName { get; set; }

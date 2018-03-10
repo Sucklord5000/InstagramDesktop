@@ -82,36 +82,39 @@ namespace TestCallASPAPI.ModelView
             {
                 return this.OpenPage ?? (this.OpenPage = new HelperClass.RelayCommand(async obj =>
                 {
-                    //IResult<InstaFeed> Feed = await App.api.GetUserTimelineFeedAsync(PaginationParameters.MaxPagesToLoad(1));
-                   // foreach (var item in Feed.Value.Medias)
-                   // {
+                    IResult<InstaFeed> Feed = await App.api.GetUserTimelineFeedAsync(PaginationParameters.MaxPagesToLoad(1));
+                    foreach (var item in Feed.Value.Medias)
+                    {
                         Model.FeedItem feed = new Model.FeedItem();
-                    feed.GetBitmapImage = await feed.GetImage("http://torrents-igri.net/_ld/1/115.jpg");
+                        if (!item.IsMultiPost)
+                            feed.GetBitmapImage = await feed.GetImage(item.Images[0].URI);
+                        else
+                            feed.GetBitmapImage = await feed.GetImage(item.Carousel[0].Images[0].URI);
                         feed.Human = new Model.Human()
                         {
-                            FullName = "",
-                            Image = "",
-                            UserName = ""
+                            FullName = item.User.FullName,
+                            Image = item.User.ProfilePicture,
+                            UserName = item.User.UserName
                         };
-                        feed.CountLike = 56;
+                        feed.CountLike = item.LikesCount;
                         feed.GetCommentUnderPhoto = new Model.Comment()
                         {
-                           UserName ="ljljlkj",
-                           Comments = "skjslksjklsfjlfksjsdlkjsdlksjflksfjlksdfjlksdfjskldfjsdlkmmskjslksjklsfjlfksjsdlkjsdlksjflksfjlksdfjlksdfjskldfjsdlkmmskjslksjklsfjlfksjsdlkjsdlksjflksfjlksdfjlksdfjskldfjsdlkmmskjslksjklsfjlfksjsdlkjsdlksjflksfjlksdfjlksdfjskldfjsdlkmmskjslksjklsfjlfksjsdlkjsdlksjflksfjlksdfjlksdfjskldfjsdlkmm,nknknknkjnkjnkjnjk"
+                            UserName = item.Caption.User.UserName,
+                            Comments = item.Caption.Text
                         };
-                        //if (item.PreviewComments.Count > 0)
-                        //{
-                        //    foreach (var str in item.PreviewComments)
-                        //    {
-                        //        feed.Comments.Add(new Model.Comment()
-                        //        {
-                        //            UserName = str.User.UserName,
-                        //            Comments = str.Text
-                        //        });
-                        //    }
-                        //}
+                        if (item.PreviewComments.Count > 0)
+                        {
+                            foreach (var str in item.PreviewComments)
+                            {
+                                feed.Comments.Add(new Model.Comment()
+                                {
+                                    UserName = str.User.UserName,
+                                    Comments = str.Text
+                                });
+                            }
+                        }
                         this.Item.Add(feed);
-                    //}//
+                    }            
                 }));
             }
         }

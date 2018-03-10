@@ -263,13 +263,6 @@ namespace TestCallASPAPI.ModelView
                 this.InformationToCache.UserName = GetUserInfo.GetName;
                 this.InformationToCache.FullName = GetUserInfo.GetFullName;
                 this.InformationToCache.SourceImage = GetUserInfo.GetSourcePictureUser;
-                IResult<InstaMediaList> list = 
-                    await App.api.GetUserMediaAsync(App.User.ToString(), PaginationParameters.Empty);
-                this.AllPublichCount = list.Value.Count;
-                list.Value.Clear();
-                GetUserInfo.GetCountPublish = this.AllPublichCount;
-
-                this.InformationToCache.CountPublish = GetUserInfo.GetCountPublish;
                 HelperClass.CacheHelper.SaveTocache(App.User.ToString(), this.InformationToCache, DateTime.Now.Add(MemoryCache.Default.PollingInterval));
                 await value.CloseAsync();
             }
@@ -285,7 +278,6 @@ namespace TestCallASPAPI.ModelView
                 UserInfo.GetCountFollowing = Reboot.CountFollowing;
                 UserInfo.GetFullName = Reboot.FullName;
                 UserInfo.GetCountFollowers = Reboot.CountFollowers;
-                UserInfo.GetCountPublish = Reboot.CountPublish;
                 this.Completed = true;
             }
         }

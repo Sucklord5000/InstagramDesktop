@@ -15,21 +15,7 @@ namespace TestCallASPAPI.Model
         private string FullName;
         private int CountFollowers;
         private int CountFollowing;
-        private int CountPublish;
 
-
-        public int GetCountPublish
-        {
-            get
-            {
-                return this.CountPublish;
-            }
-            set
-            {
-                this.CountPublish = value;
-                OnPropertyChanged(nameof(GetCountPublish));
-            }
-        }
 
         public int GetCountFollowing
         {
