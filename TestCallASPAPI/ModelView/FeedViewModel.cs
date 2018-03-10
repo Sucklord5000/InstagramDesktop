@@ -25,7 +25,6 @@ namespace TestCallASPAPI.ModelView
             this.Item = new ObservableCollection<Model.FeedItem>();
         }
 
-
         public HelperClass.RelayCommand GotFocusCommand
         {
             get
@@ -33,7 +32,6 @@ namespace TestCallASPAPI.ModelView
                 return this.Got ?? (this.Got = new HelperClass.RelayCommand(obj =>
                 {
                     Model.FeedItem item = obj as Model.FeedItem;
-                    MessageBox.Show(item.CountLike.ToString());
                 }));
             }
         }
@@ -58,7 +56,7 @@ namespace TestCallASPAPI.ModelView
                     {
                         GetItem[GetItem.Count - 1].Comments.Add(new Model.Comment()
                         {
-                            UserName = "kirovvyacheslav",
+                            UserName = App.session.UserName,
                             Comments = GetTextComment
                         });
                         GetTextComment = String.Empty;
@@ -82,21 +80,38 @@ namespace TestCallASPAPI.ModelView
         {
             get
             {
-                return this.OpenPage ?? (this.OpenPage = new HelperClass.RelayCommand( obj =>
+                return this.OpenPage ?? (this.OpenPage = new HelperClass.RelayCommand(async obj =>
                 {
-
                     //IResult<InstaFeed> Feed = await App.api.GetUserTimelineFeedAsync(PaginationParameters.MaxPagesToLoad(1));
-                    Model.FeedItem item = new Model.FeedItem();
-                    item.Comments.Add(new Model.Comment()
-                    {
-                        Comments = "adlkladksldaks",
-                        UserName = "ivan",
-                        Cross = true
-                    });
-                    item.CountLike = 45;
-                    item.Image = "pack://application:,,,/Resources/rob-swire.jpeg";
-                    GetItem.Add(item);
-                    GetItem.Add(item);
+                   // foreach (var item in Feed.Value.Medias)
+                   // {
+                        Model.FeedItem feed = new Model.FeedItem();
+                    feed.GetBitmapImage = await feed.GetImage("http://torrents-igri.net/_ld/1/115.jpg");
+                        feed.Human = new Model.Human()
+                        {
+                            FullName = "",
+                            Image = "",
+                            UserName = ""
+                        };
+                        feed.CountLike = 56;
+                        feed.GetCommentUnderPhoto = new Model.Comment()
+                        {
+                           UserName ="ljljlkj",
+                           Comments = "skjslksjklsfjlfksjsdlkjsdlksjflksfjlksdfjlksdfjskldfjsdlkmmskjslksjklsfjlfksjsdlkjsdlksjflksfjlksdfjlksdfjskldfjsdlkmmskjslksjklsfjlfksjsdlkjsdlksjflksfjlksdfjlksdfjskldfjsdlkmmskjslksjklsfjlfksjsdlkjsdlksjflksfjlksdfjlksdfjskldfjsdlkmmskjslksjklsfjlfksjsdlkjsdlksjflksfjlksdfjlksdfjskldfjsdlkmm,nknknknkjnkjnkjnjk"
+                        };
+                        //if (item.PreviewComments.Count > 0)
+                        //{
+                        //    foreach (var str in item.PreviewComments)
+                        //    {
+                        //        feed.Comments.Add(new Model.Comment()
+                        //        {
+                        //            UserName = str.User.UserName,
+                        //            Comments = str.Text
+                        //        });
+                        //    }
+                        //}
+                        this.Item.Add(feed);
+                    //}//
                 }));
             }
         }

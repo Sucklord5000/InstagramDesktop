@@ -25,7 +25,13 @@
                 <Grid.RowDefinitions>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <iconPacks:PackIconMaterial HorizontalAlignment="Right" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="30" Height="30" Kind="Instagram"/>
+                <iconPacks:PackIconMaterial Cursor="Hand" HorizontalAlignment="Right" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="30" Height="30" Kind="Instagram">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseLeftButtonDown">
+                            <i:InvokeCommandAction Command="{Binding ElementName=uc,Path=Feed}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </iconPacks:PackIconMaterial>
                 <TextBlock Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="38" Text="Instagram">
                     <TextBlock.Style>
                         <Style>

@@ -20,9 +20,23 @@ namespace TestCallASPAPI.MyFrameworkElement
         public static readonly DependencyProperty HomeProperty = DependencyProperty.Register("Home",
             typeof(ICommand), typeof(InstaPanel), new PropertyMetadata(null));
 
+        public static readonly DependencyProperty FeedProperty = DependencyProperty.Register("Feed", typeof(ICommand), typeof(InstaPanel));
+
         public InstaPanel()
         {
             InitializeComponent();
+        }
+
+        public ICommand Feed
+        {
+            get
+            {
+                return (ICommand)GetValue(FeedProperty);
+            }
+            set
+            {
+                SetValue(FeedProperty, value);
+            }
         }
         public ICommand Home
         {

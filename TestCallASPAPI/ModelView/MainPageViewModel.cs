@@ -31,7 +31,20 @@ namespace TestCallASPAPI.ModelView
         private bool Completed = false;
         private HelperClass.AllInformationAboutTheUser InformationToCache;
         private HelperClass.RelayCommand Home;
+        private HelperClass.RelayCommand Feed;
         private int AllPublichCount { get; set; }
+
+
+        public HelperClass.RelayCommand GetFeed
+        {
+            get
+            {
+                return this.Feed ?? (this.Feed = new HelperClass.RelayCommand(obj =>
+                {
+                    HelperClass.Mediator.Notify("ChangePage", 4);
+                }));
+            }
+        }
         public HelperClass.RelayCommand GetHome
         {
             get
@@ -62,7 +75,7 @@ namespace TestCallASPAPI.ModelView
             {
                 return this.SelectionChanged ?? (this.SelectionChanged = new HelperClass.RelayCommand(async obj =>
                 {
-                    if (Completed && GetMyPhoto.Count < this.AllPublichCount)
+                    if (Completed)
                         await GetUserMedia(App.User.ToString(), GetMyPhoto[GetMyPhoto.Count - 1].GetPictureKey);
                 }));
             }
@@ -80,7 +93,6 @@ namespace TestCallASPAPI.ModelView
 
             InstaMediaList Collection = user.Value;
 
-            MessageBox.Show(p.NextId);
             for(int a = 0; a < Collection.Count;a++)
             {
                 if (!Collection[a].IsMultiPost)
@@ -191,24 +203,24 @@ namespace TestCallASPAPI.ModelView
         {
             get
             {
-                return this.loadedCommand ?? (this.loadedCommand = new HelperClass.RelayCommand(obj =>
+                return this.loadedCommand ?? (this.loadedCommand = new HelperClass.RelayCommand(async obj =>
                 {
-                    //await Start();
-                    GetUserInfo.GetSourcePictureUser = "pack://application:,,,/Resources/rob-swire.jpeg";
-                    GetUserInfo.GetName = ";k;lk;lk;lk";
-                    GetUserInfo.GetFullName = ";lkl;k";
+                    await Start();
+                    //GetUserInfo.GetSourcePictureUser = "pack://application:,,,/Resources/rob-swire.jpeg";
 
-                    Model.MediaInfo l = new Model.MediaInfo();
-                    l.GetBitmapImage = new System.Windows.Media.Imaging.BitmapImage();
-                    l.GetBitmapImage.BeginInit();
-                    l.GetBitmapImage.CacheOption = System.Windows.Media.Imaging.BitmapCacheOption.OnLoad;
-                    l.GetBitmapImage.UriSource = new Uri("pack://application:,,,/Resources/rob-swire.jpeg");
-                    l.GetBitmapImage.EndInit();
-                    GetMyPhoto.Add(l);
-                    GetMyPhoto.Add(l);
-                    GetMyPhoto.Add(l);
-                    GetMyPhoto.Add(l);
-                    GetMyPhoto.Add(l);
+                    //Model.MediaInfo inf = new Model.MediaInfo();
+                    //inf.GetBitmapImage = new System.Windows.Media.Imaging.BitmapImage();
+                    //inf.GetBitmapImage.BeginInit();
+                    //inf.GetBitmapImage.UriSource = new Uri("pack://application:,,,/Resources/4.jpg");
+                    //inf.GetBitmapImage.EndInit();
+                    //GetMyPhoto.Add(inf);
+                    //GetMyPhoto.Add(inf);
+                    //Model.MediaInfo inf2 = new Model.MediaInfo();
+                    //inf2.GetBitmapImage = new System.Windows.Media.Imaging.BitmapImage();
+                    //inf2.GetBitmapImage.BeginInit();
+                    //inf2.GetBitmapImage.UriSource = new Uri("pack://application:,,,/Resources/rob-swire.jpeg");
+                    //inf2.GetBitmapImage.EndInit();
+                    //GetMyPhoto.Add(inf2);
                 }));
 
             }

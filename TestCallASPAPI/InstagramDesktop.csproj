@@ -128,7 +128,7 @@
     <Compile Include="HelperClass\BooleanToVisibilityConverter.cs" />
     <Compile Include="HelperClass\CacheHelper.cs" />
     <Compile Include="HelperClass\IPageViewModel.cs" />
-    <Compile Include="HelperClass\ListViewBehavior.cs" />
+    <Compile Include="HelperClass\ScrollViewerBehavior.cs" />
     <Compile Include="HelperClass\SaveLikeCollection.cs" />
     <Compile Include="HelperClass\WidthDeleteThreeConverter.cs" />
     <Compile Include="ModelView\DialogViewModel.cs" />

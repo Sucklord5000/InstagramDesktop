@@ -240,6 +240,7 @@ namespace TestCallASPAPI.ModelView
                         HelperClass.CacheHelper.RemoveFromCache(App.User + "Like");
                         HelperClass.CacheHelper.SaveTocache(App.User + "Like", this.LikeCollection, DateTime.Now.Add(MemoryCache.Default.PollingInterval));
                     }
+                    this.SelectedItem = null;
                 }));
             }
         }

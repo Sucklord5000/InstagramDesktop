@@ -26,7 +26,7 @@ namespace TestCallASPAPI.MyFrameworkElement
                 new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
 
         public static readonly DependencyProperty Source =
-            DependencyProperty.Register("PathImage", typeof(string), typeof(InstaFeed),
+            DependencyProperty.Register("PathImage", typeof(BitmapImage), typeof(InstaFeed),
                 new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
 
         public static readonly DependencyProperty TextBlockText =
@@ -39,10 +39,6 @@ namespace TestCallASPAPI.MyFrameworkElement
 
         public static readonly DependencyProperty CollectionComment =
             DependencyProperty.Register("ItemsSource", typeof(IList), typeof(InstaFeed),
-                new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
-
-        public static readonly DependencyProperty CommentUnderPhoto =
-            DependencyProperty.Register("GetUserCommentUnderPhoto", typeof(string), typeof(InstaFeed),
                 new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
 
         public static readonly DependencyProperty CountLike =
@@ -60,6 +56,11 @@ namespace TestCallASPAPI.MyFrameworkElement
             DependencyProperty.Register("SelectedIndex", typeof(int), typeof(InstaFeed),
                 new FrameworkPropertyMetadata(0, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
 
+        public static readonly DependencyProperty CommentsUnderPhoto =
+            DependencyProperty.Register("UserCommentUnderPhoto", typeof(Model.Comment), typeof(InstaFeed),
+                new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+
+
         private new bool Visibility;
         private HelperClass.RelayCommand Enter;
         private HelperClass.RelayCommand Leave;
@@ -67,6 +68,17 @@ namespace TestCallASPAPI.MyFrameworkElement
 
 
 
+        public Model.Comment UserCommentUnderPhoto
+        {
+            get
+            {
+                return (Model.Comment)GetValue(CommentsUnderPhoto);
+            }
+            set
+            {
+                SetValue(CommentsUnderPhoto, value);
+            }
+        }
         public void OnPropertyChanged([CallerMemberName]string prop = "")
         {
             if (PropertyChanged != null)
@@ -151,18 +163,6 @@ namespace TestCallASPAPI.MyFrameworkElement
                 SetValue(CountLike, value);
             }
         }
-        public string GetUserCommentUnderPhoto
-        {
-            get
-            {
-                return GetValue(CommentUnderPhoto) as string;
-            }
-            set
-            {
-                SetValue(CommentUnderPhoto, value);
-            }
-        }
-
         public string UserPicture
         {
             get
@@ -208,11 +208,11 @@ namespace TestCallASPAPI.MyFrameworkElement
             }
         }
 
-        public string PathImage
+        public BitmapImage PathImage
         {
             get
             {
-                return (string)GetValue(Source);
+                return (BitmapImage)GetValue(Source);
             }
             set
             {

@@ -40,7 +40,11 @@
                     </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <MyElement:InstaFeed DeleteCommentCommand="{Binding DataContext.DeleteCommentsCommand,ElementName=stack}" SendComment="{Binding DataContext.SendCommentCommand,ElementName=stack}" PathImage="{Binding Image}" HorizontalAlignment="Stretch" Margin="0 50 0 0" ItemsSource="{Binding Comments}" Grid.Column="1" GetCountLike="{Binding CountLike}" GetComment="{Binding DataContext.GetTextComment,ElementName=stack,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+                            <MyElement:InstaFeed UserFullName="{Binding Human.FullName}"
+                                                 UserPicture="{Binding Human.Image}" 
+                                                 UserCommentUnderPhoto="{Binding GetCommentUnderPhoto}"
+                                                 DeleteCommentCommand="{Binding DataContext.DeleteCommentsCommand,ElementName=stack}" SendComment="{Binding DataContext.SendCommentCommand,ElementName=stack}" 
+                                                 PathImage="{Binding GetBitmapImage}" HorizontalAlignment="Stretch" Margin="0 50 0 0" ItemsSource="{Binding Comments}" Grid.Column="1" GetCountLike="{Binding CountLike}" GetComment="{Binding DataContext.GetTextComment,ElementName=stack,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="GotFocus">
                                         <i:InvokeCommandAction CommandParameter="{Binding}" Command="{Binding DataContext.GotFocusCommand,ElementName=stack}"/>

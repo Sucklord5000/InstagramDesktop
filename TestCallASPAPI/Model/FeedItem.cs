@@ -6,6 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.CompilerServices;
 using System.Collections.ObjectModel;
+using System.IO;
+using System.Windows.Media.Imaging;
+using System.Net;
 
 namespace TestCallASPAPI.Model
 {
@@ -14,8 +17,63 @@ namespace TestCallASPAPI.Model
         private ObservableCollection<Comment> Comment = 
             new ObservableCollection<Model.Comment>();
         private Human human;
+        private Comment UnderPhoto;
         private int countLike;
-        private string image;
+        private Stream Stream;
+        private BitmapImage Image;
+
+
+        public Comment GetCommentUnderPhoto
+        {
+            get
+            {
+                return this.UnderPhoto;
+            }
+            set
+            {
+                this.UnderPhoto = value;
+                OnPropertyChanged(nameof(GetCommentUnderPhoto));
+            }
+        }
+        public Stream GetStreamImage
+        {
+            get
+            {
+                return this.Stream;
+            }
+            set
+            {
+                this.Stream = value;
+                OnPropertyChanged(nameof(GetStreamImage));
+            }
+        }
+
+        public BitmapImage GetBitmapImage
+        {
+            get
+            {
+                return this.Image;
+            }
+            set
+            {
+                this.Image = value;
+                OnPropertyChanged(nameof(GetBitmapImage));
+            }
+        }
+        public async Task<BitmapImage> GetImage(String url)
+        {
+            BitmapImage image = new BitmapImage();
+            WebClient client = new WebClient();
+            var buffer = await client.DownloadDataTaskAsync(new Uri(url));
+            GetStreamImage = new MemoryStream(buffer);
+            image.BeginInit();
+            image.CacheOption = BitmapCacheOption.None;
+            image.StreamSource = GetStreamImage;
+            image.EndInit();
+            image.Freeze();
+            client.Dispose();
+            return image;
+        }
 
         public ObservableCollection<Comment> Comments
         {
@@ -30,18 +88,6 @@ namespace TestCallASPAPI.Model
             }
         }
 
-        public string Image
-        {
-            get
-            {
-                return this.image;
-            }
-            set
-            {
-                this.image = value;
-                OnPropertyChanged(nameof(Image));
-            }
-        }
         public Human Human
         {
             get

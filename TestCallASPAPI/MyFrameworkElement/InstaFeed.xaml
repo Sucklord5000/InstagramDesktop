@@ -20,31 +20,31 @@
                                      AncestorType=UserControl}}">
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height=".2*"></RowDefinition>
-                <RowDefinition Height="1*"></RowDefinition>
-                <RowDefinition Height=".1*"></RowDefinition>
-                <RowDefinition></RowDefinition>
+                <RowDefinition Height=".3*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height=".1*"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition Width=".1*"/>
+                    <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Ellipse Grid.Row="0" Grid.Column="0" Width="20" Height="20">
+                <Ellipse Grid.Row="0" Grid.Column="0" Width="30" Height="30">
                     <Ellipse.Fill>
-                        <ImageBrush Stretch="Uniform" ImageSource="{Binding UserPicture}"/>
+                        <ImageBrush Stretch="UniformToFill" ImageSource="{Binding UserPicture}"/>
                     </Ellipse.Fill>
                 </Ellipse>
-                <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding UserFullName}"/>
+                <TextBlock Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Left" FontWeight="Bold" FontSize="14" Grid.Column="1" Text="{Binding UserFullName}"/>
             </Grid>
             <Grid Grid.Row="2">
-                <Image Stretch="None" Name="img" Source="{Binding PathImage}"/>
+                <Image Stretch="UniformToFill" Name="img" Source="{Binding PathImage}"/>
             </Grid>
             <Grid Grid.Row="3" Margin="10 0 0 0" >
                 <Grid.RowDefinitions>
                     <RowDefinition Height="50"></RowDefinition>
                     <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition></RowDefinition>
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
@@ -57,9 +57,16 @@
                 <iconPacks:PackIconMaterial VerticalAlignment="Center" Grid.Row="0" Grid.Column="0" Kind="Heart" Width="20" Height="20"/>
                 <iconPacks:PackIconMaterial VerticalAlignment="Center" Grid.Row="0" Grid.Column="1" Kind="Comment" Width="20" Height="20"/>
                 <TextBlock VerticalAlignment="Center" FontWeight="Bold" FontSize="13" Text="{Binding GetCountLike,StringFormat={}{0} отметок «Нравится»}" Grid.Row="1" Grid.ColumnSpan="4" TextWrapping="Wrap"/>
-                <TextBlock Text="{Binding GetUserCommentUnderPhoto}"/>
-                <Label Grid.Row="2" Grid.ColumnSpan="4" Margin="-5 0 0 0" FontSize="13" Cursor="Hand" Content="Загрузить еще комментарии" Foreground="Gray"/>
-                <ItemsControl Name="itemscontrol" Grid.Row="3" Grid.ColumnSpan="4" ItemsSource="{Binding ItemsSource}">
+                <Grid Grid.Row="2" Grid.ColumnSpan="4">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock FontWeight="Bold" TextWrapping="Wrap" Text="{Binding UserCommentUnderPhoto.UserName}"/>
+                    <TextBlock TextAlignment="Justify" Margin="10 0 10 0" Grid.Column="1" TextWrapping="Wrap" Text="{Binding UserCommentUnderPhoto.Comments}"/>
+                </Grid>
+                <Label Grid.Row="3" Grid.ColumnSpan="4" Margin="-5 0 0 0" FontSize="13" Cursor="Hand" Content="Загрузить еще комментарии" Foreground="Gray"/>
+                <ItemsControl Name="itemscontrol" Grid.Row="4" Grid.ColumnSpan="4" ItemsSource="{Binding ItemsSource}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <Grid>
