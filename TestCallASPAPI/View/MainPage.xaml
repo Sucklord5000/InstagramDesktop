@@ -77,7 +77,7 @@
                         </Grid.ColumnDefinitions>
 
                         <TextBlock VerticalAlignment="Bottom" Grid.Row="0" Grid.ColumnSpan="3" FontWeight="Light" FontSize="30" Text="{Binding GetUserInfo.GetName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
-                        <TextBlock VerticalAlignment="Center" FontSize="15" FontWeight="Bold" Grid.Row="1" Grid.Column="0" Text="{Binding ElementName=MyListView,Path=Items.Count,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,StringFormat={}{0} публикаций}"/>
+                        <TextBlock VerticalAlignment="Center" FontSize="15" FontWeight="Bold" Grid.Row="1" Grid.Column="0" Text="{Binding ElementName=MyListView,Path=Items.Count,StringFormat={}{0} публикаций}"/>
                         <TextBlock VerticalAlignment="Center" FontSize="15" FontWeight="Bold" Grid.Row="1" Grid.Column="1" Text="{Binding GetUserInfo.GetCountFollowers,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,StringFormat={}{0} подписчиков}">
                      <i:Interaction.Triggers>
                            <i:EventTrigger EventName="MouseLeftButtonDown">
